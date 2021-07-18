@@ -5,48 +5,47 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background: #D8BFD8" >Data Mahasiswa 
-                 <a href="{{ route ('tambah.data') }}" class="btn btn-primary" class="text-right" style="float:right">Tambah Data</a>
-                 </div>
-               
-                <div class="card-body">
-    
-                        <div class="table-responsive">
-            
+                <div class="card-header">Data Mahasiswa
+                <a href="{{ route('tambah.mahasiswa') }}" class="btn btn-md btn-outline-secondary float-right">Tambah Data</a>
+                </div>
 
-                        <table class="table table-bordered">
-                        
-                        
-                        <tr>
-                            <th>NO</th>
-                            <th>NAMA LENGKAP</th>
-                            <th>TEMPAT,TANGGAL LAHIR</th>
-                            <th>TELEPON</th>
-                            <th>ALAMAT</th>
-                            <th>JENIS KELAMIN</th>
-                            <th>PHOTO</th>
-                            <th>AKSI</th>
-                            
-                        </tr>
-                        @foreach ($mahasiswa as $mhs)
-                      
-                                
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                    <tr bgcolor="#FFE4C4">
+                        <th>NO.</th>
+                        <th>NAMA LENGKAP</th>
+                        <th>NPM</th>
+                        <th>TEMPAT, TANGGAL LAHIR</th>
+                        <th>TELEPON</th>
+                        <th>ALAMAT</th>
+                        <th>JENIS KELAMIN</th>
+                        <th>AKSI</th>
+                    </tr>
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($mahasiswa as $mhs)
                     <tr>
-                        <td>{{ $mhs->id }}</td>
-                        <td>{{ $mhs->user->name}} </td>
-                        <td>{{ $mhs->tempat_lahir.','. $mhs->tgl_lahir }}</td>
+                    
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $mhs->user->name}}</td>
+                        <td>{{ $mhs->npm}} </td>
+                        <td>{{ $mhs->tempat_lahir.', ' .$mhs->tgl_lahir }}</td>
                         <td>{{ $mhs->telepon }}</td>
                         <td>{{ $mhs->alamat }}</td>
                         <td>{{ $mhs->gender }}</td>
-                        <td></td>
-                        <td>
-                            <a href="{{ route ('mahasiswa.edit' , $mhs->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                            <a href="{{ route ('hapus.data' , $mhs->id) }}" class="btn btn-sm btn-danger">HAPUS</a>
-                        
-                        </td>
+                       
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="{{ route('edit.mahasiswa', $mhs->id) }}" class="btn btn-sm btn-warning">EDIT</a>
+                        <a href="{{ route('hapus.mahasiswa', $mhs->id) }}" class="btn btn-sm btn-danger">HAPUS</a>
+                        </div>
+                    </td>
                     </tr>
                     @endforeach
-                </table>
+                    </table>
+                    </div>
                 </div>
             </div>
         </div>

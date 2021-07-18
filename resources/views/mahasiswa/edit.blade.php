@@ -5,59 +5,86 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background : #F08080 ">Edit Data</div>
-
+                <div class="card-header">Edit Data
+                    
+                </div>
                 <div class="card-body">
-                  <form action="{{ route ('update.data' , $mahasiswa->id) }}" method ="post" class="form-item" enctype="multipart/form-data">
-                  @csrf
-                  <div class="form-group">
-                  <div class="col">
-                  <label for="user_id">User ID</label>
-                  <input type="text" name="user_id" class="form-control" placeholder="Tambahkan  User ID" value="{{ is_null ($mahasiswa) ? '' : $mahasiswa -> user_id }}">
-                </div>
-                <div class="col">
-                  <label for="name">Nama Mahasiswa</label>
-                  <input type="text"   name="name" class="form-control" placeholder="Nama Mahasiswa"  value="{{ is_null ($mahasiswa) ? '' : $mahasiswa -> name }} "> 
-                <div class="col">
-                  <label for="tempat_lahir">Tempat Lahir</label>
-                  <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" value="{{ is_null ($mahasiswa) ? '' : $mahasiswa ->tempat_lahir }}">
-                </div>
-                <label for="tgl_lahir">Tanggal Lahir</label>
-                  <input type="date" name="tgl_lahir" class="form-control" placeholder="Tanggal Lahir" value =" {{ is_null ($mahasiswa) ? '' : $mahasiswa ->tgl_lahir }}"> 
-                </div>
-                <div class="col">
-                  <label for="telepon">Telepon</label>
-                  <input type="number" name="telepon" class="form-control" placeholder="Telepon" value="{{ is_null ($mahasiswa) ? '' : $mahasiswa -> telepon}}" >
-                </div>
-                <div class="col">
-                  <label for="alamat">Alamat</label>
-                  <input type="text" name="alamat" class="form-control" placeholder="Alamat" value="{{ is_null ($mahasiswa) ? '' : $mahasiswa -> alamat }}">
-                </div>
-                <div class="col">
-                <label for="gender">Gender</label>
-                <h8>Gender (L/P)</h8>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" value="L">
-                        <label class="form-check-label" for="jenis">Laki - laki</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" value="P">
-                        <label class="form-check-label" for="jenis">Perempuan</label>
-                  </div> 
-                </div>
-                <div class="col">
-                  <label for ="foto"> Foto </label>
-                  <input type="file" name="foto">
-                  </div>
+                    <form action= "{{ route('update.mahasiswa', $mahasiswa->id) }}" method="post">
+                        @csrf
+                        <div class="form-group row">
+                            <label for="user_id" class="col-sm-4 text-sm-right">Nama Mahasiswa</label>
+                            <div class="col-sm-6">
+                                <select name="user_id" id="user_id" class="form-control">
+                                    <option value="" disabled selected>--Pilih User--</option>
+                                    @foreach ($user as $u)
+                                        <option value="{{ $u->id }}" {{ $mahasiswa->user_id == $u->id ? 'selected' : '' }} >{{$u->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+					    </div>
 
-               
-        </div>
-        <div class="form-group">
-        <div class="form-row float-right">
-            <div class="col">
-            <button type="submit" class =" btn btn-md btn-primary" name="simpan" >SIMPAN</a>
-            <a href="{{ route ('indexmahasiswa') }}" class="btn btn-md btn-danger">BATAL</a>
-        </div>
+                        <div class="form-group row">
+                            <label for="npm" class="col-sm-4 text-sm-right">NPM</label>
+                            <div class="col-sm-6">
+                                <input type="numeric" name="npm" class="form-control" 
+                                placeholder="Masukkan NPM" maxlength="8" value="{{ is_null ('$mahasiswa') ? '' : $mahasiswa->npm }}">
+                            </div>
+					    </div>
+
+                        <div class="form-group row">
+                            <label for="tempat_lahir" class="col-sm-4 text-sm-right">Tempat Lahir</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="tempat_lahir" class="form-control" 
+                                placeholder="Masukkan Tempat Lahir" value="{{ is_null ('$mahasiswa') ? '' : $mahasiswa->tempat_lahir }}">
+                            </div>
+					    </div>
+
+                        <div class="form-group row">
+                            <label for="tgl_lahir" class="col-sm-4 text-sm-right">Tanggal Lahir</label>
+                            <div class="col-sm-6">
+                                <input type="date" name="tgl_lahir" class="form-control" 
+                                value="{{ is_null ('$mahasiswa') ? '' : $mahasiswa->tgl_lahir }}">
+                            </div>
+					    </div>
+
+                        <div class="form-group row">
+                            <label for="gender" class="col-sm-4 text-sm-right">Jenis Kelamin</label>
+                            <div class="col-sm-6">
+                                <select name="gender" id="gender" class="form-control">
+                                    <option value="" disabled selected>--Pilih Jenis Kelamin--</option>
+                                    <option value="L" {{ $mahasiswa->gender == 'L' ? 'selected' : '' }} >Laki-Laki</option>
+                                    <option value="P" {{ $mahasiswa->gender == 'P' ? 'selected' : '' }} >Perempuan</option>
+                                </select>
+                            </div>
+					    </div>
+
+                        <div class="form-group row">
+                            <label for="telepon" class="col-sm-4 text-sm-right">No. Telepon</label>
+                            <div class="col-sm-6">
+                                <input type="numeric" name="telepon" class="form-control" 
+                                placeholder="Masukkan No. telepon" maxlength="13" value="{{ is_null ('$mahasiswa') ? '' : $mahasiswa->telepon }}">
+                            </div>
+					    </div>
+
+                        <div class="form-group row">
+                            <label for="alamat" class="col-sm-4 text-sm-right">Alamat</label>
+                            <div class="col-sm-6">
+                                <textarea style="resize : none" name="alamat" id="alamat" cols="2" rows="3" class="form-control" 
+                                >{{ is_null ('$mahasiswa') ? '' : $mahasiswa->alamat }}</textarea>
+                            </div>
+					    </div>
+                        
+                        <div class="form-group row">
+                            <label for="" class="col-sm-4 text-sm-right"></label>
+                            <div class="col-sm-6 float-right">
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                <a href="{{ route('index') }}" class="btn btn-danger " name="batal">Batal</a>
+                            </div>
+					    </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
